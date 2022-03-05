@@ -24,12 +24,12 @@ for (let num = 30; num >= 0; num--) {
 
 export default function Graph() {
   return (
-    <ResponsiveContainer width="100%" height={400}>
+    <ResponsiveContainer width="95%" height={400}>
       <AreaChart data={data}>
         <defs>
           <linearGradient id="color" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0%" stopColor="#2451B7" stopOpacity={0.4}></stop>
-            <stop offset="75%" stopColor="#2451B7" stopOpacity={0.05}></stop>
+            <stop offset="0%" stopColor="#0077f6" stopOpacity={0.4}></stop>
+            <stop offset="75%" stopColor="#0077f6" stopOpacity={0.05}></stop>
           </linearGradient>
         </defs>
 

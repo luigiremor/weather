@@ -3,6 +3,7 @@ import Image from 'next/image'
 // import { HomeIcon } from '@heroicons/react/outline'
 import { ChartBarIcon, HomeIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
+import Graph from '../components/Graph'
 
 export default function Home() {
   const menuOptions = [
@@ -44,7 +45,17 @@ export default function Home() {
             ))}
           </nav>
         </div>
-        <div className="flex-1 p-10 bg-red-500">oi</div>
+        <div className="flex-1 p-10 bg-gray-100">
+          <div className="shadow-xl rounded-xl bg-white px-">
+            <div className="pt-5 px-5 text-2xl font-medium ">Temperature</div>
+            <div className="pb-5 px-5 text-md text-gray-500">
+              degrees Celsius (°C)
+            </div>
+            <div className="flex justify-center">
+              <Graph />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   )
