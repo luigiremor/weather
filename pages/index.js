@@ -5,6 +5,7 @@ import { ChartBarIcon, HomeIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import Graph from '../components/Graph'
 import { useState, useEffect } from 'react'
+import GraphT from '../components/Graph copy'
 
 export default function Home() {
   const menuOptions = [
@@ -130,8 +131,9 @@ export default function Home() {
             <div className="pb-5 px-5 text-md text-gray-500">
               degrees Celsius (°C)
             </div>
-            <div className="flex justify-center">
-              <Graph />
+            <div className="flex justify-center h-1/2">
+              {/* <Graph /> */}
+              <GraphT />
             </div>
           </div>
         </div>
