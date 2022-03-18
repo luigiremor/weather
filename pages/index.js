@@ -4,7 +4,6 @@ import Image from 'next/image'
 import { ChartBarIcon, HomeIcon } from '@heroicons/react/solid'
 import Link from 'next/link'
 import Graph from '../components/Graph'
-import axios from 'axios'
 import { useState, useEffect } from 'react'
 
 export default function Home() {
@@ -23,6 +22,8 @@ export default function Home() {
 
   const [weather, setWeather] = useState({})
   const [loadingWeather, setLoadingWeather] = useState(false)
+  const [weatherMap, setWeatherMap] = useState({})
+  const [loadingWeatherMap, setLoadingWeatherMap] = useState(false)
 
   useEffect(() => {
     async function getWeatherByLocation(city) {
@@ -39,7 +40,23 @@ export default function Home() {
     getWeatherByLocation('Florianopolis')
   }, [])
 
+  useEffect(() => {
+    async function getWeatherMapByLocation(x, y, z) {
+      const resp = await fetch(
+        `https://tile.openweathermap.org/map/temp_new/${z}/${x}/${y}.png?appid=${apikey}`
+      )
+
+      const data = await resp.json()
+
+      setWeatherMap(data)
+      setLoadingWeatherMap(true)
+    }
+
+    getWeatherMapByLocation('2', '2', '3')
+  }, [])
+
   console.log(weather)
+  console.log(weatherMap)
 
   return (
     <div>
@@ -73,7 +90,7 @@ export default function Home() {
         </div>
         <div id="main" className="flex-1 p-10 bg-gray-100">
           <div className="flex mb-5 space-x-5">
-            <div className="shadow-xl rounded-xl bg-white w-1/2">
+            <div className="shadow-xl rounded-xl bg-white w-full">
               <div className="pt-5 px-5 text-2xl font-medium ">Temperature</div>
               <div className="px-5 text-md text-gray-500">
                 degrees Celsius (°C)
@@ -81,7 +98,7 @@ export default function Home() {
               <div className="flex justify-center">
                 {loadingWeather ? (
                   <div className="text-5xl pb-5">
-                    {(weather.main.temp - 273.15).toFixed(2)}°C
+                    {(weather.main.temp - 273.15).toFixed(0)}°C
                   </div>
                 ) : (
                   <img
@@ -91,7 +108,20 @@ export default function Home() {
                 )}
               </div>
             </div>
-            <div className="shadow-xl rounded-xl bg-white w-1/2">oi</div>
+            <div className="shadow-xl rounded-xl bg-white w-full">
+              <div className="pt-5 px-5 text-2xl font-medium ">Humidity</div>
+              <div className="px-5 text-md text-gray-500">Percentage (%)</div>
+              <div className="flex justify-center">
+                {loadingWeather ? (
+                  <div className="text-5xl pb-5">{weather.main.humidity}%</div>
+                ) : (
+                  <img
+                    className="h-6 w-6 mb-5"
+                    src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif"
+                  />
+                )}
+              </div>
+            </div>
           </div>
           <div className="shadow-xl rounded-xl bg-white">
             <div className="pt-5 px-5 text-2xl font-medium ">
