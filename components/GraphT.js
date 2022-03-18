@@ -14,12 +14,13 @@ import {
 import data from '../../weather_backend/data.json'
 
 export default function GraphT() {
+  let filteredData = data.slice(1).slice(-60) // 60 requisições = 10 min
   return (
     <ResponsiveContainer width="90%" height={400}>
       <AreaChart
         width={500}
         height={300}
-        data={data}
+        data={filteredData}
         margin={{
           top: 5,
           right: 30,
@@ -48,7 +49,6 @@ export default function GraphT() {
     </ResponsiveContainer>
   )
   function CustomTooltip({ active, payload, label }) {
-    console.log(payload)
     if (active) {
       return (
         <div className="rounded-md bg-white shadow-2xl text-center p-2">

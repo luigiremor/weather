@@ -1,64 +1,7 @@
 import Head from 'next/head'
-import Image from 'next/image'
-
-import { ChartBarIcon, HomeIcon } from '@heroicons/react/solid'
-import Link from 'next/link'
-import { useState, useEffect } from 'react'
-import GraphT from '../components/GraphT'
-import GraphH from '../components/GraphH'
+import Sidebar from '../components/Sidebar'
 
 export default function Home() {
-  const menuOptions = [
-    {
-      name: 'Home',
-      icon: HomeIcon
-    },
-    {
-      name: 'Stats',
-      icon: ChartBarIcon
-    }
-  ]
-
-  const apikey = 'f4d949bfa64fbe2c8bf7ecbb7a7b3154'
-
-  const [weather, setWeather] = useState({})
-  const [loadingWeather, setLoadingWeather] = useState(false)
-  const [weatherMap, setWeatherMap] = useState({})
-  const [loadingWeatherMap, setLoadingWeatherMap] = useState(false)
-
-  useEffect(() => {
-    async function getWeatherByLocation(city) {
-      const resp = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apikey}`
-      )
-
-      const data = await resp.json()
-
-      setWeather(data)
-      setLoadingWeather(true)
-    }
-
-    getWeatherByLocation('Florianopolis')
-  }, [])
-
-  useEffect(() => {
-    async function getWeatherMapByLocation(x, y, z) {
-      const resp = await fetch(
-        `https://tile.openweathermap.org/map/temp_new/${z}/${x}/${y}.png?appid=${apikey}`
-      )
-
-      const data = await resp.json()
-
-      setWeatherMap(data)
-      setLoadingWeatherMap(true)
-    }
-
-    getWeatherMapByLocation('2', '2', '3')
-  }, [])
-
-  console.log(weather)
-  console.log(weatherMap)
-
   return (
     <div>
       <Head>
@@ -67,82 +10,32 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="relative flex min-h-screen">
-        <nav className="bg-gray-50 w-24 fixed z-1 h-screen mr-12">
-          <div id="logo" className="flex justify-center ">
-            <img
-              className="p-2 h-24 grayscale"
-              src="https://portalpadrao.ufma.br/ineof/imagens/logo-ufsc.png/@@images/84622670-9bb9-4fee-9460-dcfd76b7e33f.png"
-            />
-          </div>
-          <nav>
-            {menuOptions.map(item => (
-              <div className="block hover:bg-white rounded-r-md hover:border-r-4 border-blue-500 p-2 hover:font-medium transition-colors ease-in duration-300 cursor-pointer">
-                <div className="flex justify-center">
-                  <item.icon className="h-6 text-blue-500" />
-                </div>
-                <div className="flex justify-center text-sm">
-                  <Link href="#" key={item.name}>
-                    {item.name}
-                  </Link>
-                </div>
-              </div>
-            ))}
-          </nav>
-        </nav>
+        <Sidebar />
+
         <div id="main" className="flex-1 p-10 bg-gray-100 ml-20">
-          <div className="flex mb-5 space-x-5">
-            <div className="shadow-xl rounded-xl bg-white w-full">
-              <div className="pt-5 px-5 text-2xl font-medium ">Temperature</div>
-              <div className="px-5 text-md text-gray-500">
-                degrees Celsius (°C)
-              </div>
-              <div className="flex justify-center">
-                {loadingWeather ? (
-                  <div className="text-5xl pb-5">
-                    {(weather.main.temp - 273.15).toFixed(0)}°C
-                  </div>
-                ) : (
-                  <img
-                    className="h-6 w-6 mb-5"
-                    src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif"
-                  />
-                )}
-              </div>
-            </div>
-            <div className="shadow-xl rounded-xl bg-white w-full">
-              <div className="pt-5 px-5 text-2xl font-medium ">Humidity</div>
-              <div className="px-5 text-md text-gray-500">Percentage (%)</div>
-              <div className="flex justify-center">
-                {loadingWeather ? (
-                  <div className="text-5xl pb-5">{weather.main.humidity}%</div>
-                ) : (
-                  <img
-                    className="h-6 w-6 mb-5"
-                    src="https://c.tenor.com/I6kN-6X7nhAAAAAj/loading-buffering.gif"
-                  />
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="shadow-xl rounded-xl bg-white mb-5">
-            <div className="pt-5 px-5 text-2xl font-medium ">
-              Temperature ESP
-            </div>
-            <div className="pb-5 px-5 text-md text-gray-500">
-              degrees Celsius (°C)
-            </div>
-            <div className="flex justify-center h-1/2">
-              <GraphT />
-            </div>
-          </div>
-          <div className="shadow-xl rounded-xl bg-white">
-            <div className="pt-5 px-5 text-2xl font-medium ">Humidity ESP</div>
-            <div className="pb-5 px-5 text-md text-gray-500">
-              Percentage (%)
-            </div>
-            <div className="flex justify-center h-1/2">
-              <GraphH />
-            </div>
+          <div className="max-w-screen-md text-xl space-y-3">
+            <h1 className="text-2xl">Olá, pessoal! 👋🏼</h1>
+            <p>
+              Esté é o meu projeto de transdutores da disciplina{' '}
+              <strong>EEL7013</strong>, meu objetivo com ele é conectar os meus
+              conhecimentos de eletrônica com os meus conhecimentos de
+              desenvolvimento de software.
+            </p>
+            <h2>Conhecimentos obtidos:</h2>
+            <ul className="ml-4">
+              <li>- C++;</li>
+              <li>- Javascript;</li>
+              <li>- Python;</li>
+              <li>- Funcionamento de microprocessadores e sensores;</li>
+              <li>- Princípios de Sistemas Embarcados;</li>
+              <li>- Conexão de microprocessador via VPS;</li>
+              <li>- Internet of things (IoT), MQTT Protocol;</li>
+              <li>- API;</li>
+            </ul>
+            <p>
+              Agradecimentos à Profª Dr. Eng. Daniela Suzuki e ao Eng. Níkola
+              Zaia.
+            </p>
           </div>
         </div>
       </div>
