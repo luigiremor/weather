@@ -13,7 +13,7 @@ import {
 } from 'recharts'
 import data from '../../weather_backend/data.json'
 
-export default function GraphT() {
+export default function GraphH() {
   return (
     <ResponsiveContainer width="90%" height={400}>
       <AreaChart
@@ -39,7 +39,7 @@ export default function GraphT() {
         <Tooltip content={<CustomTooltip />} />
         <Area
           type="monotone"
-          dataKey="t2"
+          dataKey="t1"
           stroke="#0077f6"
           activeDot={{ r: 5 }}
           fill="url(#color)"
@@ -52,8 +52,9 @@ export default function GraphT() {
     if (active) {
       return (
         <div className="rounded-md bg-white shadow-2xl text-center p-2">
-          <div>{label}</div>
-          <p>Temperatura: {payload[0].value.toFixed(1)} ºC</p>
+          <p>Humidity: {payload[0].value.toFixed(0)} %</p>
+          <h1>{label.substring(10, 30)}</h1>
+          <div>{label.substring(0, 10)}</div>
         </div>
       )
     }
